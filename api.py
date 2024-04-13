@@ -1,18 +1,17 @@
-import uvicorn #rodar o servidor
-from pydantic import BaseModel 
+import uvicorn
 from fastapi import FastAPI
 from pessoa import Pessoa
 from pessoa_operations import PessoaOperations
 
-app = FastAPI() # criando objeto
+app = FastAPI()
 
 @app.get("/exemplo")
-def example() -> str: #função
+def example() -> str:
     return "Olá Mundo"
 
-@app.post("/Exemplo_2")
+@app.post("/exemplo_2")
 def example2(pessoa: Pessoa) -> str:
-    #inserção no banco destes dados
+    # inserção no banco destes dados
     return pessoa.codigo
 
 @app.get("/pegar_pessoa_por_nome")

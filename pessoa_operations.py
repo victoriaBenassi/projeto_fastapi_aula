@@ -26,30 +26,28 @@ class PessoaOperations:
 
         Conexao().desconectar(cursor)
         return dados.to_dict()
-
+    
     async def inserir_pessoa(pessoa: Pessoa) -> str | None :
         pessoa_local = Pessoa(pessoa.nome, pessoa.email, pessoa.mensagem)
-
+        
         conexao = Conexao().conectar()
         cursor = conexao.cursor()
-
+        
         sql = f"INSERT INTO sql10698413.mensagens (nome, email, mensagem) values ('{pessoa_local.nome}', '{pessoa_local.email}', '{pessoa_local.mensagem}');"
         
         try:
             resultado = cursor.execute(sql)
             if resultado <= 0:
-                return {"message":"Falha na gravação da pessoa"}
-            
+                return f"{'message':'Falha na gravação da pessoa'}"
+        
         except ConnectionRefusedError as error2:
-            return {"message":f"{error2.strerror}"}
+            return f'{"message":f"{error2.strerror}"}'
         
         except ConnectionError as error:
-            return {"message":f"{error.strerror}"}
+            return f"{'message':'{error.strerror}'}"
         
         finally:
             conexao.commit()
             Conexao().desconectar(cursor)
-       
-        return{"message Pessoa" + pessoa_local.nome + 'Inserida com sucesso!'}
-
-
+            
+        return "message Pessoa " + pessoa_local.nome + ' inserida com sucesso!'
